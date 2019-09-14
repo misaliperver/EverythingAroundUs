@@ -1,3 +1,11 @@
+$(document).ready(function(){
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function (p) {
+      $('#latitude').val(p.coords.latitude);
+      $('#longitude').val(p.coords.longitude);
+    });
+  }
+});
 var c = document.getElementById("c");
 var ctx = c.getContext("2d");
 var cH;
@@ -217,8 +225,8 @@ function SearchNearbyPlace(){
         $("#SearchButton").notify("Missing parameters.");
         $('#longitude').focus();
     }
-
-    const searchUrl = `/searchnearby?x=${_longitude}&y=${_latitude}&radius=${_radius}`;
+    
+    const searchUrl = `/searchnearby?x=${_latitude}&y=${_longitude}&radius=${_radius}`;
     $.get(searchUrl, function(data){
         if(data.success){
             $("#NearbyListComponent").html('');
