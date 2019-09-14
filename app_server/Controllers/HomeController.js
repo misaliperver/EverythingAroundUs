@@ -3,6 +3,10 @@ const fetch = require('node-fetch'),
     redis = require('redis'),
     client = redis.createClient();
 
+if(Apikey == "COPYKEY"){
+    throw new Error("Google Places API KEY Copy /app_server/Configurations/AppSettings.js")
+}
+
 exports.GetHome = (req, res) => {
     res.render("General/Anasayfa");
 }
