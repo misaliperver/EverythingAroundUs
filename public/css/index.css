@@ -1,0 +1,23 @@
+body{
+    font-family: 'Roboto', sans-serif;
+}
+#body-container{
+    margin: 0;
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.modal-header-green{
+    color:rgb(245, 255, 243);
+    background-color:rgb(20, 148, 3)
+}
+.notifyjs-bootstrap-base {
+    opacity: 0.85 !important;
+    background: #F5F5F5 !important;
+    color: rgb(255, 111, 15);
+    padding: 5px;
+    border-radius: 10px;
+}
+
+
