@@ -213,6 +213,11 @@ function SearchNearbyPlace(){
     const _latitude = $('#latitude').val();
     const _radius = $('#radius').val();
 
+    if(_longitude == "" ||_latitude == "" ||_radius == "" ) {
+        $("#SearchButton").notify("Missing parameters.");
+        $('#longitude').focus();
+    }
+
     const searchUrl = `/searchnearby?x=${_longitude}&y=${_latitude}&radius=${_radius}`;
     $.get(searchUrl, function(data){
         if(data.success){
