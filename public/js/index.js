@@ -216,6 +216,7 @@ function fauxClick(x, y) {
 }
 
 
+var lastNearbyPlacesList = {}
 function SearchNearbyPlace(){
     const _longitude = $('#longitude').val();
     const _latitude = $('#latitude').val();
@@ -230,8 +231,11 @@ function SearchNearbyPlace(){
     $.get(searchUrl, function(data){
         if(data.success){
             $("#NearbyListComponent").html('');
+            var iteration = 0;
+            lastNearbyPlacesList = data.nearbyList;
             data.nearbyList.forEach(item =>{
-                $("#NearbyListComponent").append(`<li class="list-group-item">${item}</li>`);
+                $("#NearbyListComponent").append(`<li class="list-group-item" onclick="OpenDetail(${iteration})">${item.name}</li>`);
+                iteration++;
             });
             const cachedText = data.isCached ? `<i class="fas fa-registered">&nbsp;</i>Redis Response` : `<i class="fab fa-google">&nbsp;</i>Google Places Api Response`;
             $('#NearbyListIsCached').html(cachedText);
@@ -241,4 +245,32 @@ function SearchNearbyPlace(){
             $("#SearchButton").notify(data.message);
         }
     });
+}
+
+function OpenDetail(index){
+  $('#NearbyPlaceDetails-Name').text(lastNearbyPlacesList[index].name);
+  $('.NearbyPlaceDetails').modal('toggle');
+  $('#NearbyPlaceDetails-Component').html('');
+  var iterator = 0;
+  for(let [jkey, jvalue] of Object.entries(lastNearbyPlacesList[index])){
+    if(typeof(jvalue) == "object"){
+      $('#NearbyPlaceDetails-Component').append(
+        `<tr>
+          <th scope="row">${iterator}</th>
+          <td>${jkey}</td>
+          <td style='word-break: break-all;'>${JSON.stringify(jvalue)}</td>
+        </tr>`);
+    
+      }else{
+      $('#NearbyPlaceDetails-Component').append(
+        `<tr>
+          <th scope="row">${iterator}</th>
+          <td>${jkey}</td>
+          <td>${jvalue}</td>
+        </tr>`);
+    
+      }
+      iterator++;
+    }
+  
 }

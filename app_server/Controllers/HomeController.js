@@ -32,13 +32,9 @@ exports.GetNearbyPlaces = async (req, res) => {
     try{
         if(response.status = 200){
             if(data.results.length>0){
-                var nearbylist = [];
-                data.results.forEach(data => {
-                    nearbylist= [...nearbylist, data.name];
-                });
                 const SearchParameter = x.replace('.', "_") + y.replace('.', "_") + radius;
-                client.set(SearchParameter, JSON.stringify(nearbylist));
-                return res.json({success:true, isCached:false, nearbyList: nearbylist})
+                client.set(SearchParameter, JSON.stringify(data.results));
+                return res.json({success:true, isCached:false, nearbyList: data.results})
             }else{
                 res.status = 404;
                 return res.json({success: false, message: "Nearby Places Not Found."});

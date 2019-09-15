@@ -8,6 +8,10 @@ body{
     left: 50%;
     transform: translate(-50%, -50%);
 }
+.modal-header-orange{
+    color:rgb(255, 244, 214);
+    background-color:rgb(255, 115, 1)
+}
 .modal-header-green{
     color:rgb(245, 255, 243);
     background-color:rgb(20, 148, 3)
